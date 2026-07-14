@@ -28,4 +28,10 @@ git pull
 - [查看 GitHub 中的 Markdown 文件](https://github.com/kaining-never-stop/llm-learning-notes/blob/main/docs/post-training/distributional-view.md)
 - [打开 Markdown 原文](https://raw.githubusercontent.com/kaining-never-stop/llm-learning-notes/main/docs/post-training/distributional-view.md)
 
+### DPO 为什么只做偏好分类，却“自带” KL 约束？
+
+- [在线阅读](post-training/dpo-implicit-kl.md)
+- [查看 GitHub 中的 Markdown 文件](https://github.com/kaining-never-stop/llm-learning-notes/blob/main/docs/post-training/dpo-implicit-kl.md)
+- [打开 Markdown 原文](https://raw.githubusercontent.com/kaining-never-stop/llm-learning-notes/main/docs/post-training/dpo-implicit-kl.md)
+
 打开原文后，可以使用浏览器的“保存页面”功能保存为 `.md` 文件。

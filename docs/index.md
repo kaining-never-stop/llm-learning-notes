@@ -15,10 +15,25 @@
 
 [阅读文章](post-training/distributional-view.md){ .md-button .md-button--primary }
 
+### DPO 为什么只做偏好分类，却“自带” KL 约束？
+
+这篇来自一次手推过程中产生的问题：DPO 看起来只是在拟合 Chosen 与 Rejected 的偏好关系，为什么 Loss 中却自然出现了当前策略与 Reference Policy 的概率比？
+
+文章从 KL-Regularized Reward Maximization 出发，依次推导：
+
+- KL 约束下最优策略的解析形式；
+- 为什么同一 Prompt 下的回答共享同一个 $Z(x)$；
+- $Z(x)$ 如何在 Bradley–Terry Preference Model 中抵消；
+- DPO Loss 为什么继承了原始 RLHF 目标的 KL 结构。
+
+文中同时附有三页原始手稿。
+
+[阅读文章](post-training/dpo-implicit-kl.md){ .md-button .md-button--primary }
+
 ## 获取原文
 
 - [下载全部笔记（ZIP）](https://github.com/kaining-never-stop/llm-learning-notes/archive/refs/heads/main.zip)
 - [查看 GitHub 仓库](https://github.com/kaining-never-stop/llm-learning-notes)
-- [下载本文 Markdown 原文](https://raw.githubusercontent.com/kaining-never-stop/llm-learning-notes/main/docs/post-training/distributional-view.md)
+- [查看全部 Markdown 原文](https://github.com/kaining-never-stop/llm-learning-notes/tree/main/docs)
 
 更多下载方式见[获取笔记](download.md)。

@@ -14,6 +14,10 @@
 
   从自回归序列分布和概率树出发，梳理 SFT、RL、On-Policy Distillation 的训练对象、更新信号，以及它们在泛化与灾难性遗忘上的差异。
 
+- [DPO 为什么只做偏好分类，却“自带” KL 约束？](https://kaining-never-stop.github.io/llm-learning-notes/post-training/dpo-implicit-kl/)
+
+  从一次手推过程出发，完整推导 KL-Regularized RL、最优策略、同一 Prompt 下共享的 $Z(x)$，以及 DPO Loss 中隐含的 KL 结构。文章附有三页原始手稿。
+
 ## 获取笔记
 
 - [下载全部笔记（ZIP）](https://github.com/kaining-never-stop/llm-learning-notes/archive/refs/heads/main.zip)
