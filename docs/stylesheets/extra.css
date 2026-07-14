@@ -17,12 +17,30 @@
   margin-top: 1.8em;
 }
 
-.md-typeset .arithmatex {
+.md-typeset div.arithmatex {
   overflow-x: auto;
   overflow-y: hidden;
+  padding: 0.35rem 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.md-typeset div.arithmatex > mjx-container {
+  min-width: max-content;
 }
 
 .md-typeset table:not([class]) {
   font-size: 0.72rem;
 }
 
+@media screen and (max-width: 44.984375em) {
+  .md-typeset__table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .md-typeset__table table:not([class]) {
+    min-width: 42rem;
+  }
+}
