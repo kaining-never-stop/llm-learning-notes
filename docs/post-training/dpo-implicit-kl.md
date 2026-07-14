@@ -15,23 +15,23 @@
 
 > 关键词：DPO、RLHF、KL Divergence、Reference Policy、Bradley–Terry Model、Partition Function
 
-今天下午手推 DPO 时，我想到一个很有意思的问题：DPO 的训练形式看起来只是一个二分类问题。给定同一个 Prompt 下的 `chosen response` 和 `rejected response`，模型只需要提高前者胜过后者的概率。
+DPO大家都很熟悉，也知道他的基本原理以及适用场景，KL散度大家也很熟悉，也知道它的基本原理和适用场景，老生常谈。DPO 的训练形式看起来只是一个二分类问题。给定同一个 Prompt 下的 `chosen response` 和 `rejected response`，模型只需要提高前者胜过后者的概率。此文主要讲DPO的偏好模型是怎么构建的，以及为什么其他的后训练算法都在添加KL散度，但DPO的损失函数却如此纯粹？
 
-但是，DPO Loss 中为什么又会出现当前策略与 Reference Policy 的对数概率比：
+比如说，DPO Loss 中为什么又会出现当前策略与 Reference Policy 的对数概率比：
 
 $$
 \log\frac{\pi_\theta(y\mid x)}{\pi_{\mathrm{ref}}(y\mid x)}.
 $$
 
-这个形式与 KL Divergence 的核心组成完全一致。于是我最初的疑问是：
+这个形式与 KL Divergence 的核心组成完全一致。难道说？？？？？但，DPO并没有显式计算KL散度
 
 > DPO 明明没有在 Loss 中显式计算 KL Divergence，为什么仍然带有相对于 Reference Policy 的 KL 约束？
 
-顺着手稿中的推导走完以后，我得到的结论是：
+本文结合手稿进行如下结论的推算：
 
 > DPO 并不是在普通偏好分类目标之外“自动生成”了一个 KL 项。它先从带 KL Regularization 的 RLHF 目标出发，把最优策略反解成隐式 Reward，再代入 Bradley–Terry Preference Model。因此，最后看起来只是分类的 Loss，实际上继承了原始 RL 目标的 KL 结构。
 
-换句话说，我认为 Reference Policy 并不是后来人为塞进 DPO Loss 的技巧，而是原始 KL-Regularized RL 目标经过解析推导后自然留下来的结构。下面从最基础的 Reward Maximization 开始，一步步把这个关系推出来。
+一句话结论，Reference Policy 并不是后来人为塞进 DPO Loss 的技巧，而是原始 KL-Regularized RL 目标经过解析推导后自然留下来的结构。下面从最基础的 Reward Maximization 开始，一步步把这个关系推出来。
 
 ---
 
