@@ -48,6 +48,7 @@ nav:
   - 首页: index.md
   - 后训练:
       - 在分布视角下理解后训练: post-training/distributional-view.md
+  - 获取笔记: download.md
 
 plugins:
   - search:

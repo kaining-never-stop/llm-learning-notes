@@ -1,26 +1,24 @@
 # LLM 学习笔记
 
-这里用于持续整理语言模型、强化学习与后训练相关的学习笔记。
+这里收录语言模型、强化学习与后训练相关的学习笔记。内容以 Markdown 保存，公式使用 LaTeX 编写，可以在线阅读，也可以下载原文。
 
-笔记尽量遵循三个原则：
+## 已收录
 
-- 从底层原理出发，而不是只记录结论；
-- 使用数学公式明确对象之间的关系；
-- 区分个人理解、作者观点与已经验证的结论。
+### 在分布视角下理解语言模型后训练
 
-## 当前内容
+从“语言模型是一个序列分布”出发，将生成过程展开成自回归概率树，并在同一视角下比较：
 
-### 后训练
+- SFT 如何沿外部示范路径提高 Token 概率；
+- RL 如何从当前策略采样，并根据 Reward 调整路径概率；
+- OPD 如何在 Student 访问的状态上学习 Teacher 分布；
+- On-Policy Data 为什么可能减少遗忘并改善泛化。
 
-- [在分布视角下理解语言模型后训练](post-training/distributional-view.md)
+[阅读文章](post-training/distributional-view.md){ .md-button .md-button--primary }
 
-  使用自回归概率树统一理解 SFT、RL、On-Policy Distillation，以及它们在泛化和灾难性遗忘上的差异。
+## 获取原文
 
-## 后续方向
+- [下载全部笔记（ZIP）](https://github.com/kaining-never-stop/llm-learning-notes/archive/refs/heads/main.zip)
+- [查看 GitHub 仓库](https://github.com/kaining-never-stop/llm-learning-notes)
+- [下载本文 Markdown 原文](https://raw.githubusercontent.com/kaining-never-stop/llm-learning-notes/main/docs/post-training/distributional-view.md)
 
-- Reinforcement Learning with Verifiable Rewards（RLVR）
-- GRPO 与 Policy Gradient
-- On-Policy Distillation（OPD）
-- Single-Rollout 与采样分布
-- 语言模型训练与推理系统
-
+更多下载方式见[获取笔记](download.md)。
