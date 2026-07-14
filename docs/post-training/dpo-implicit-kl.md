@@ -35,7 +35,7 @@ $$
 
 ---
 
-## 一、我先统一符号
+## 一、符号定义
 
 | 符号 | 含义 |
 | --- | --- |
@@ -49,7 +49,7 @@ $$
 | $\beta>0$ | KL Regularization 系数 |
 | $Z(x)$ | 固定 Prompt 下的归一化因子，即 Partition Function |
 
-我这里把 $\pi_\theta(y\mid x)$ 理解为完整回答的序列概率。对自回归语言模型，有：
+这里的 $\pi_\theta(y\mid x)$ 表示完整回答的序列概率。对自回归语言模型，有：
 
 $$
 \log\pi_\theta(y\mid x)
@@ -62,9 +62,9 @@ $$
 
 ---
 
-## 二、我先从最普通的 Reward Maximization 开始
+## 二、从 Reward Maximization 开始
 
-我先暂时不考虑 KL 约束。最直接的强化学习目标，就是最大化模型生成回答的期望 Reward：
+暂时不考虑 KL 约束，最直接的强化学习目标是最大化模型生成回答的期望 Reward：
 
 $$
 J_{\mathrm{RL}}(\theta)
@@ -102,13 +102,13 @@ r(x,y)\nabla_\theta\log\pi_\theta(y\mid x)
 \right].
 $$
 
-我对这个梯度的直观理解是：Reward 高的回答路径会被提高概率，Reward 低的回答路径会被降低概率。
+这个梯度的直观含义是：Reward 高的回答路径会被提高概率，Reward 低的回答路径会被降低概率。
 
-但我很快会遇到下一个问题：如果只追逐 Reward，策略可能快速远离原模型，导致语言质量下降、分布坍缩或 Reward Hacking。因此，RLHF 通常会引入一个固定的 Reference Policy 作为约束中心。
+但如果只追逐 Reward，策略可能快速远离原模型，导致语言质量下降、分布坍缩或 Reward Hacking。因此，RLHF 通常会引入一个固定的 Reference Policy 作为约束中心。
 
 ---
 
-## 三、接下来把 KL Regularization 放回来
+## 三、KL-Regularized RL 目标
 
 带 KL Regularization 的目标写成：
 
@@ -159,7 +159,7 @@ r(x,y)
 \right].
 $$
 
-我在手稿里把括号中的量理解为经过 KL 惩罚修正后的“有效 Reward”：
+括号中的量可以理解为经过 KL 惩罚修正后的“有效 Reward”：
 
 $$
 r_{\mathrm{eff}}(x,y)
@@ -174,11 +174,11 @@ $$
 
 ---
 
-## 四、不继续算 Policy Gradient，我直接求最优策略
+## 四、直接求解 KL-Regularized RL 的最优策略
 
-这里是我觉得整个 DPO 推导中最有意思的一步：不继续沿着 Policy Gradient 往下算，而是先暂时忽略神经网络参数化，把 $\pi(\cdot\mid x)$ 当作一个可以直接优化的概率分布，直接求出最优策略的解析形式。
+DPO 推导的关键是不继续沿着 Policy Gradient 计算，而是暂时忽略神经网络参数化，将 $\pi(\cdot\mid x)$ 视为可以直接优化的概率分布，求出最优策略的解析形式。
 
-### 4.1 我先固定一个 Prompt
+### 4.1 固定一个 Prompt
 
 对固定的 Prompt $x$，目标为：
 
@@ -271,7 +271,7 @@ $$
 \exp\left(\frac{\lambda(x)}{\beta}-1\right).
 $$
 
-推到这里以后，我注意到最后一项与具体回答 $y$ 无关，它只负责让所有回答的概率和重新变成 $1$。将它记为 $1/Z(x)$，就能得到最优策略：
+最后一项与具体回答 $y$ 无关，只负责让所有回答的概率和重新变成 $1$。将它记为 $1/Z(x)$，即可得到最优策略：
 
 $$
 \boxed{
@@ -295,11 +295,11 @@ Z(x)
 }
 $$
 
-我对这个结果的理解是：最优策略不是抛弃 Reference Policy 重新构造一个分布，而是在 Reference Policy 的基础上，使用 $\exp(r/\beta)$ 对每个回答进行 Reward Reweighting，最后再统一归一化。
+这个结果表明：最优策略不是抛弃 Reference Policy 重新构造一个分布，而是在 Reference Policy 的基础上，使用 $\exp(r/\beta)$ 对每个回答进行 Reward Reweighting，最后再统一归一化。
 
-### 4.2 我卡住的一个点：为什么同一个 Prompt 下的 Z(x) 完全相同
+### 4.2 为什么同一个 Prompt 下的 Z(x) 完全相同
 
-这是我手推时专门停下来确认的一点，也是后续能够消去 Partition Function 的关键。
+这是后续能够消去 Partition Function 的关键。
 
 首先，从定义直接看：
 
@@ -331,7 +331,7 @@ $$
 
 因此只需要一个对应的拉格朗日乘子 $\lambda(x)$，而不是为每个回答 $y$ 分别设置一个乘子。由 $\lambda(x)$ 推导出的 $Z(x)$ 自然也对该 Prompt 下的全部回答共享。
 
-我觉得最直观的类比是 Softmax 的分母。对于同一组 Logits，每个类别的分子不同，但所有类别共享同一个分母：
+最直观的类比是 Softmax 的分母。对于同一组 Logits，每个类别的分子不同，但所有类别共享同一个分母：
 
 $$
 p_i=\frac{e^{z_i}}{\sum_j e^{z_j}}.
@@ -339,11 +339,11 @@ $$
 
 这里的回答 $y$ 相当于类别，$\pi_{\mathrm{ref}}(y\mid x)e^{r(x,y)/\beta}$ 相当于未归一化权重，而 $Z(x)$ 就是所有回答共享的分母。
 
-所以我最终确认的是：同一个 Prompt 下的 $Z(x)$ 必然相同；换成另一个 Prompt $x'$ 后，Reference Distribution 和 Reward Landscape 都可能变化，所以一般不要求 $Z(x')=Z(x)$。DPO 能够消去 $Z(x)$，依赖的正是偏好比较中的两个回答共享同一个 Prompt。
+因此，同一个 Prompt 下的 $Z(x)$ 必然相同；换成另一个 Prompt $x'$ 后，Reference Distribution 和 Reward Landscape 都可能变化，所以一般不要求 $Z(x')=Z(x)$。DPO 能够消去 $Z(x)$，依赖的正是偏好比较中的两个回答共享同一个 Prompt。
 
 ---
 
-## 五、我再从最优策略反解 Reward
+## 五、从最优策略反解 Reward
 
 由最优策略：
 
@@ -368,7 +368,7 @@ r(x,y)
 }
 $$
 
-这一步让我把 Reward 与最优策略真正对应起来：
+这一步建立了 Reward 与最优策略之间的对应关系：
 
 $$
 \text{Reward}
@@ -382,7 +382,7 @@ $$
 
 ## 六、为什么 Z(x) 在 Preference Model 中正好消失
 
-接下来，我把刚才反解出的 Reward 代入 Bradley–Terry Preference Model。对于同一个 Prompt $x$ 下的两个回答 $y_w$ 和 $y_l$：
+接下来，将反解出的 Reward 代入 Bradley–Terry Preference Model。对于同一个 Prompt $x$ 下的两个回答 $y_w$ 和 $y_l$：
 
 $$
 p^*(y_w\succ y_l\mid x)
@@ -456,15 +456,15 @@ p^*(y_w\succ y_l\mid x)
 }
 $$
 
-推到这里，我最初的问题已经解决了一半：难以显式计算的 Reward 和 Partition Function 都从偏好概率中消失了，只剩下最优策略与 Reference Policy 的概率比。
+至此，难以显式计算的 Reward 和 Partition Function 都从偏好概率中消失，只剩下最优策略与 Reference Policy 的概率比。
 
 如果比较的是来自不同 Prompt 的两个回答，例如 $y_1\sim\pi(\cdot\mid x_1)$ 与 $y_2\sim\pi(\cdot\mid x_2)$，那么一般会留下 $\log Z(x_1)-\log Z(x_2)$，不能使用上述方式直接消去。这也是标准 DPO 数据使用“同一 Prompt 下成对回答”的理论原因之一。
 
 ---
 
-## 七、最后把偏好概率变成 DPO Loss
+## 七、从偏好概率到 DPO Loss
 
-真实训练中当然不知道最优策略 $\pi^*$，所以我接下来用可训练策略 $\pi_\theta$ 去逼近它。对偏好数据集：
+真实训练中并不知道最优策略 $\pi^*$，因此使用可训练策略 $\pi_\theta$ 去逼近它。对偏好数据集：
 
 $$
 \mathcal D
@@ -524,7 +524,7 @@ $$
 
 ---
 
-## 八、回到最初的问题：KL 到底藏在哪里
+## 八、KL 结构在 DPO 中的具体位置
 
 ### 8.1 对数概率比就是 KL 的基本组成
 
@@ -544,7 +544,7 @@ D_{\mathrm{KL}}
 \right].
 $$
 
-我现在再回头看 DPO Loss，会发现它使用的正是这个 Log Probability Ratio。区别在于，DPO 没有再对当前策略的全部回答分布显式求期望，而是比较偏好样本中 Chosen 与 Rejected 的两个 Log Ratio。
+DPO Loss 使用的正是这个 Log Probability Ratio。区别在于，DPO 没有再对当前策略的全部回答分布显式求期望，而是比较偏好样本中 Chosen 与 Rejected 的两个 Log Ratio。
 
 ### 8.2 Reference Policy 来源于原始 KL-Regularized RL 目标
 
@@ -563,7 +563,7 @@ $$
 \beta D_{\mathrm{KL}}(\pi\Vert\pi_{\mathrm{ref}}).
 $$
 
-因此，我认为更准确的说法不是“DPO Loss 里面显式包含一个 KL Divergence”，而是：
+因此，更准确的说法不是“DPO Loss 里面显式包含一个 KL Divergence”，而是：
 
 > DPO 的 Preference Logit 使用了由 KL-Regularized RL 最优策略诱导出的隐式 Reward 参数化，因此继承了 Reference Policy 所定义的相对概率坐标系。
 
@@ -588,9 +588,9 @@ Reference Policy 是固定的，不会产生参数梯度；但它参与 $m_\thet
 
 ---
 
-## 九、我对“DPO 自带 KL”的最终理解
+## 九、“DPO 自带 KL”的准确含义
 
-“DPO 自带 KL”可以作为一个很直观的表述，但我认为必须给它加上边界。
+“DPO 自带 KL”可以作为直观表述，但必须明确其适用边界。
 
 ### 可以这样理解
 
@@ -619,9 +619,9 @@ $$
 
 ---
 
-## 十、我最后把完整推导链条压缩一下
+## 十、完整推导链条
 
-推到最后，我把整个过程压缩成下面这条链：
+完整过程可以压缩成下面这条链：
 
 $$
 \boxed{
@@ -648,17 +648,17 @@ $$
 }
 $$
 
-如果只保留一句话，我会这样总结：
+核心结论可以概括为：
 
 > DPO 先利用 KL-Regularized RL 的最优解，把 Reward 写成 Policy 与 Reference Policy 的对数概率比；再利用同一 Prompt 内偏好比较只依赖 Reward Difference 的性质，消去共同的 $Z(x)$，最终将 RLHF 目标转换成可以直接训练 Policy 的二分类目标。
 
-这也是我手推之后觉得最巧妙的地方：DPO 表面上绕开了 Reward Model 和 RL Loop，但不是把 RLHF 的理论结构丢掉了，而是通过一次重参数化把它折叠进了 Preference Classification。
+DPO 最巧妙的地方在于：它表面上绕开了 Reward Model 和 RL Loop，但并没有丢弃 RLHF 的理论结构，而是通过一次重参数化将其折叠进 Preference Classification。
 
 ---
 
-## 十一、我认为需要保留的推导边界
+## 十一、推导成立的条件与边界
 
-为了避免把这条结论无限外推，我认为还需要明确它依赖的基本条件：
+为了避免将结论无限外推，还需要明确该推导依赖的基本条件：
 
 1. $\beta>0$；
 2. 在所讨论的回答支持集上，$\pi_{\mathrm{ref}}(y\mid x)>0$；
