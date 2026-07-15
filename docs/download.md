@@ -22,6 +22,12 @@ git pull
 
 ## 下载单篇文章
 
+### PyTorch 训练底层与 CausalLM 手撕
+
+- [在线阅读](post-training-basics/pytorch-training-causallm.md)
+- [查看 GitHub 中的 Markdown 文件](https://github.com/kaining-never-stop/llm-learning-notes/blob/main/docs/post-training-basics/pytorch-training-causallm.md)
+- [打开 Markdown 原文](https://raw.githubusercontent.com/kaining-never-stop/llm-learning-notes/main/docs/post-training-basics/pytorch-training-causallm.md)
+
 ### 在分布视角下理解语言模型后训练
 
 - [在线阅读](post-training/distributional-view.md)

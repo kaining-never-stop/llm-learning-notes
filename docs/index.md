@@ -2,7 +2,38 @@
 
 这里收录语言模型、强化学习与后训练相关的学习笔记。内容以 Markdown 保存，公式使用 LaTeX 编写，可以在线阅读，也可以下载原文。
 
-## 已收录
+## 内容分类
+
+<div class="grid cards" markdown>
+
+-   **从数学讲清后训练**
+
+    从目标函数、概率分布与优化过程出发，理解后训练算法为什么成立。
+
+    [进入分类](categories/math-post-training.md)
+
+-   **后训练基础**
+
+    补齐模型结构、训练链路与实现基础，为后续学习 SFT、DPO、PPO、GRPO 建立统一底座。
+
+    [进入分类](categories/post-training-basics.md)
+
+</div>
+
+## 最新收录
+
+### PyTorch 训练底层与 CausalLM 手撕
+
+从 Tensor、Parameter、计算图和 AdamW 开始，完整串起：
+
+- `input_ids -> logits -> logprob/loss` 的前向链路；
+- `loss.backward() -> parameter.grad -> optimizer.step()` 的参数更新链路；
+- CausalLM 的 Shift、Mask、Logprob 与 Cross Entropy；
+- 从 Attention、RoPE、RMSNorm 到最小 Llama 风格 Transformer 的手写实现。
+
+[阅读文章](post-training-basics/pytorch-training-causallm.md){ .md-button .md-button--primary }
+
+## 从数学讲清后训练
 
 ### 在分布视角下理解语言模型后训练
 

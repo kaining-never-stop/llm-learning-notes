@@ -46,9 +46,13 @@ theme:
 
 nav:
   - 首页: index.md
-  - 后训练:
+  - 从数学讲清后训练:
+      - 分类概览: categories/math-post-training.md
       - 在分布视角下理解后训练: post-training/distributional-view.md
       - DPO 为什么隐含 KL 约束: post-training/dpo-implicit-kl.md
+  - 后训练基础:
+      - 分类概览: categories/post-training-basics.md
+      - PyTorch 训练底层与 CausalLM 手撕: post-training-basics/pytorch-training-causallm.md
   - 获取笔记: download.md
 
 plugins:
