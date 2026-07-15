@@ -118,6 +118,12 @@ html:not([data-rem-theme="off"]) .md-content__inner {
   background: linear-gradient(90deg, #2d8fd3, #66bdf3 68%, #92aaf6);
 }
 
+/* Material 通过 hidden 控制页签动画，并同时关闭 pointer-events。
+   自定义主题会保留这条导航栏，因此必须恢复其交互能力。 */
+.md-tabs[hidden] {
+  pointer-events: auto;
+}
+
 .md-tabs__link {
   box-sizing: border-box;
   display: inline-flex;
