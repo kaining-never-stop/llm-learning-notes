@@ -12,21 +12,22 @@ copyright: Copyright &copy; 2026 kaining-never-stop
 theme:
   name: material
   language: zh
+  logo: assets/images/theme/rem-avatar.webp
+  favicon: assets/images/theme/rem-avatar.webp
   icon:
-    logo: material/book-open-page-variant
     repo: fontawesome/brands/github
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: indigo
-      accent: indigo
+      primary: light blue
+      accent: blue
       toggle:
         icon: material/brightness-7
         name: 切换至深色模式
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: indigo
-      accent: indigo
+      primary: light blue
+      accent: blue
       toggle:
         icon: material/brightness-4
         name: 切换至浅色模式
@@ -95,6 +96,7 @@ markdown_extensions:
 
 extra_javascript:
   - javascripts/mathjax.js
+  - javascripts/rem-theme.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 extra_css:
