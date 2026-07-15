@@ -46,15 +46,18 @@ theme:
     - content.action.edit
 
 nav:
-  - 首页: index.md
-  - 从数学讲清后训练:
-      - 分类概览: categories/math-post-training.md
-      - 在分布视角下理解后训练: post-training/distributional-view.md
-      - DPO 为什么隐含 KL 约束: post-training/dpo-implicit-kl.md
-  - 后训练基础:
-      - 分类概览: categories/post-training-basics.md
-      - PyTorch 训练底层与 CausalLM 手撕: post-training-basics/pytorch-training-causallm.md
-  - 获取笔记: download.md
+  - 简介: index.md
+  - 分类:
+      - 分类总览: categories/index.md
+      - 从数学讲清后训练:
+          - 分类目录: categories/math-post-training.md
+          - 在分布视角下理解后训练: post-training/distributional-view.md
+          - DPO 为什么隐含 KL 约束: post-training/dpo-implicit-kl.md
+      - 后训练基础:
+          - 分类目录: categories/post-training-basics.md
+          - PyTorch 训练底层与 CausalLM 手撕: post-training-basics/pytorch-training-causallm.md
+  - 最新更新: updates.md
+  - 下载入口: download.md
 
 plugins:
   - search:
@@ -96,8 +99,8 @@ markdown_extensions:
 
 extra_javascript:
   - javascripts/mathjax.js
-  - javascripts/rem-theme-v2.js
+  - javascripts/rem-theme-v3.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 extra_css:
-  - stylesheets/rem-theme-v2.css
+  - stylesheets/rem-theme-v3.css

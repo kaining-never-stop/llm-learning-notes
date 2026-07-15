@@ -271,6 +271,13 @@
     }
   };
 
+  const updatePageLayout = () => {
+    root.classList.toggle(
+      "is-landing-page",
+      Boolean(document.querySelector(".landing-page-marker")),
+    );
+  };
+
   const initialize = () => {
     if (document.querySelector(".rem-theme-switch")) {
       return;
@@ -293,7 +300,12 @@
     themeSwitch.innerHTML =
       '<span class="rem-theme-switch__icon" aria-hidden="true">◐</span>' +
       '<span class="rem-theme-switch__label">普通主题</span>';
-    document.body.appendChild(themeSwitch);
+    const headerOption = document.querySelector(".md-header__option");
+    if (headerOption && headerOption.parentNode) {
+      headerOption.parentNode.insertBefore(themeSwitch, headerOption);
+    } else {
+      document.body.appendChild(themeSwitch);
+    }
 
     themeSwitch.addEventListener("click", () => {
       setTheme(!remThemeEnabled);
@@ -306,9 +318,14 @@
     document.documentElement.addEventListener("mouseleave", resetPointerEffects);
 
     resizeParticleCanvas();
+    updatePageLayout();
     const storedTheme = readStoredTheme();
     setTheme(storedTheme !== "plain", false);
   };
+
+  if (typeof document$ !== "undefined") {
+    document$.subscribe(updatePageLayout);
+  }
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initialize, { once: true });

@@ -1,3 +1,10 @@
+---
+hide:
+  - toc
+---
+
+<div class="landing-page-marker" aria-hidden="true"></div>
+
 <section class="rem-hero" aria-labelledby="rem-hero-title">
   <div class="rem-hero__copy">
     <span class="rem-hero__eyebrow">REM'S LLM NOTES</span>
@@ -11,40 +18,69 @@
   </a>
 </section>
 
-## 内容分类
+## 快速入口
 
-<div class="grid cards" markdown>
+<nav class="portal-grid" aria-label="站点主要入口">
+  <a class="portal-card portal-card--current" href="#rem-hero-title">
+    <span class="portal-card__index">01</span>
+    <strong>简介</strong>
+    <span>了解这个站点记录什么，以及笔记的整理方式。</span>
+  </a>
+  <a class="portal-card" href="categories/">
+    <span class="portal-card__index">02</span>
+    <strong>分类</strong>
+    <span>先选择学习方向，再进入该分类的文章目录。</span>
+  </a>
+  <a class="portal-card" href="updates/">
+    <span class="portal-card__index">03</span>
+    <strong>最新更新</strong>
+    <span>按发布日期查看更新，并直接进入具体文章。</span>
+  </a>
+  <a class="portal-card" href="download/">
+    <span class="portal-card__index">04</span>
+    <strong>下载入口</strong>
+    <span>下载完整仓库、单篇 Markdown 原稿与相关图片。</span>
+  </a>
+</nav>
 
--   **从数学讲清后训练**
+## 最新更新
 
-    从目标函数、概率分布与优化过程出发，理解后训练算法为什么成立。
+<div class="updates-list">
+  <article class="latest-note-card">
+    <div class="latest-note-card__meta">
+      <time datetime="2026-07-15">2026.07.15</time>
+      <span>后训练基础</span>
+    </div>
+    <h3><a href="post-training-basics/pytorch-training-causallm/">PyTorch 训练底层与 CausalLM 手撕</a></h3>
+    <p>从 Tensor、计算图和 AdamW 开始，串起 CausalLM 的前向传播、Loss、反向传播与参数更新。</p>
+    <a class="latest-note-card__link" href="post-training-basics/pytorch-training-causallm/">直接阅读 →</a>
+  </article>
 
-    [进入分类](categories/math-post-training.md)
+  <article class="latest-note-card">
+    <div class="latest-note-card__meta">
+      <time datetime="2026-07-14">2026.07.14</time>
+      <span>从数学讲清后训练</span>
+    </div>
+    <h3><a href="post-training/dpo-implicit-kl/">DPO 为什么只做偏好分类，却“自带” KL 约束？</a></h3>
+    <p>从 KL-Regularized RL 出发，推导最优策略、Reward 表达与 DPO Loss 之间的关系。</p>
+    <a class="latest-note-card__link" href="post-training/dpo-implicit-kl/">直接阅读 →</a>
+  </article>
 
--   **后训练基础**
-
-    补齐模型结构、训练链路与实现基础，为后续学习 SFT、DPO、PPO、GRPO 建立统一底座。
-
-    [进入分类](categories/post-training-basics.md)
-
+  <article class="latest-note-card">
+    <div class="latest-note-card__meta">
+      <time datetime="2026-07-14">2026.07.14</time>
+      <span>从数学讲清后训练</span>
+    </div>
+    <h3><a href="post-training/distributional-view/">在分布视角下理解语言模型后训练</a></h3>
+    <p>从序列分布与自回归概率树出发，在同一视角下理解 SFT、RL 与 OPD。</p>
+    <a class="latest-note-card__link" href="post-training/distributional-view/">直接阅读 →</a>
+  </article>
 </div>
 
-## 最新收录
+<p class="section-more"><a href="updates/">查看全部更新记录 →</a></p>
 
-<article class="latest-note-card">
-  <div class="latest-note-card__meta">
-    <time datetime="2026-07-15">2026.07.15</time>
-    <span>后训练基础</span>
-  </div>
-  <h3><a href="post-training-basics/pytorch-training-causallm/">PyTorch 训练底层与 CausalLM 手撕</a></h3>
-  <p>从 Tensor、Parameter、计算图和 AdamW 开始，串起 CausalLM 的前向传播、Loss、反向传播与参数更新，并进一步手写最小 Llama 风格 Transformer。</p>
-  <a class="latest-note-card__link" href="post-training-basics/pytorch-training-causallm/">阅读文章 →</a>
-</article>
+## 下载入口
 
-## 获取原文
+Markdown 原稿、数学公式和文章图片均保留在 GitHub 仓库中。
 
-- [下载全部笔记（ZIP）](https://github.com/kaining-never-stop/llm-learning-notes/archive/refs/heads/main.zip)
-- [查看 GitHub 仓库](https://github.com/kaining-never-stop/llm-learning-notes)
-- [查看全部 Markdown 原文](https://github.com/kaining-never-stop/llm-learning-notes/tree/main/docs)
-
-更多下载方式见[获取笔记](download.md)。
+[前往下载页面](download.md){ .md-button .md-button--primary }

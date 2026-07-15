@@ -1,4 +1,11 @@
-# 获取笔记
+---
+hide:
+  - toc
+---
+
+<div class="landing-page-marker" aria-hidden="true"></div>
+
+# 下载入口
 
 ## 下载完整内容
 
